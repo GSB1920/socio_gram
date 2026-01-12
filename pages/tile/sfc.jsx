@@ -1,4 +1,5 @@
 import React from "react";
+import { Heart, MessageCircle, Send, Bookmark, MoreHorizontal } from "lucide-react";
 
 export default function SFCTile({ sfc }) {
   const createdAt =
@@ -8,49 +9,82 @@ export default function SFCTile({ sfc }) {
       ? new Date(sfc.timestamp)
       : null;
 
+  const timeAgo = createdAt ? createdAt.toLocaleDateString() : '';
+
   return (
-    <article className="w-full border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 bg-white dark:bg-zinc-900 shadow-sm">
-      <header className="mb-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold text-black dark:text-zinc-50">
-            @{sfc.username}
-          </h2>
-          {createdAt && (
-            <span className="text-xs text-zinc-500 dark:text-zinc-400">
-              {createdAt.toLocaleString()}
+    <article className="w-full bg-white dark:bg-black border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-4">
+      {/* Header */}
+      <header className="flex items-center justify-between py-3 px-1">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800" />
+          <span className="text-sm font-semibold text-black dark:text-white">
+            {sfc.username}
+          </span>
+          {timeAgo && (
+            <span className="text-xs text-zinc-500">
+              • {timeAgo}
             </span>
           )}
         </div>
-        {sfc.caption && (
-          <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
-            {sfc.caption}
-          </p>
-        )}
+        <button className="text-black dark:text-white">
+          <MoreHorizontal className="w-5 h-5" />
+        </button>
       </header>
 
+      {/* Video */}
       {sfc.sfcLink && (
-        <div className="w-full mb-3">
+        <div className="w-full bg-black aspect-[9/16] max-h-[580px] rounded-sm overflow-hidden flex items-center justify-center">
           <video
             src={sfc.sfcLink}
             controls
-            className="w-full rounded-lg border border-zinc-300 dark:border-zinc-700 max-h-[420px] bg-black"
+            className="h-full w-full object-contain"
           />
         </div>
       )}
 
-      <footer className="mt-1 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
-        <div>
-          <span className="font-semibold">{sfc.likeCount ?? 0}</span> likes
-          <span className="mx-1">•</span>
-          <span className="font-semibold">
-            {Array.isArray(sfc.comments) ? sfc.comments.length : 0}
-          </span>{" "}
-          comments
+      {/* Action Buttons */}
+      <div className="flex items-center justify-between px-1 py-3">
+        <div className="flex items-center space-x-4">
+          <button className="hover:opacity-60">
+            <Heart className="w-6 h-6 text-black dark:text-white" />
+          </button>
+          <button className="hover:opacity-60">
+            <MessageCircle className="w-6 h-6 text-black dark:text-white" />
+          </button>
+          <button className="hover:opacity-60">
+            <Send className="w-6 h-6 text-black dark:text-white" />
+          </button>
         </div>
-        {sfc.duration != null && (
-          <span>{Math.round(sfc.duration)}s</span>
+        <button className="hover:opacity-60">
+          <Bookmark className="w-6 h-6 text-black dark:text-white" />
+        </button>
+      </div>
+
+      {/* Likes & Caption */}
+      <div className="px-1 space-y-2">
+        <div className="text-sm font-semibold text-black dark:text-white">
+          {sfc.likeCount ?? 0} likes
+        </div>
+        
+        {sfc.caption && (
+          <div className="text-sm text-black dark:text-white">
+            <span className="font-semibold mr-2">{sfc.username}</span>
+            {sfc.caption}
+          </div>
         )}
-      </footer>
+
+        <button className="text-sm text-zinc-500 dark:text-zinc-400">
+          View all {Array.isArray(sfc.comments) ? sfc.comments.length : 0} comments
+        </button>
+        
+         <div className="flex items-center justify-between mt-2">
+           <input 
+            type="text" 
+            placeholder="Add a comment..." 
+            className="w-full text-sm bg-transparent border-none focus:ring-0 p-0 text-black dark:text-white placeholder-zinc-500"
+           />
+        </div>
+      </div>
     </article>
   );
 }

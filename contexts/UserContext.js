@@ -11,9 +11,17 @@ export function UserProvider({ children }) {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        // Basic validation: user must have a username or email
+        if (parsedUser && (parsedUser.username || parsedUser.email)) {
+          setUser(parsedUser);
+        } else {
+          localStorage.removeItem('user');
+          setUser(null);
+        }
       } catch (e) {
         localStorage.removeItem('user');
+        setUser(null);
       }
     }
     setLoading(false);

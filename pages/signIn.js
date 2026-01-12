@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { getFirestore, collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 import { useRouter } from "next/router";
-import "../lib/firebase"; // ensures firebase is initialized
-
+import Link from "next/link";
+import { Facebook } from "lucide-react";
+import "../lib/firebase";
 import { useUser } from "@/contexts/UserContext";
 
 function hashPassword(password) {
-  // Simple hash using SHA-256 via browser crypto.subtle API as an example
-  // Returns a promise with the hex string
-  // In production, use a more secure solution
   return crypto.subtle.digest("SHA-256", new TextEncoder().encode(password)).then((buf) =>
     Array.from(new Uint8Array(buf))
       .map((x) => x.toString(16).padStart(2, "0"))
@@ -17,15 +15,7 @@ function hashPassword(password) {
 }
 
 export default function SignInPage() {
-  const [mode, setMode] = useState("login"); // 'login' or 'signup'
   const [loading, setLoading] = useState(false);
-  const [signupForm, setSignupForm] = useState({
-    email: "",
-    password: "",
-    username: "",
-    error: "",
-    success: "",
-  });
   const [loginForm, setLoginForm] = useState({
     userOrEmail: "",
     password: "",
@@ -34,194 +24,146 @@ export default function SignInPage() {
 
   const router = useRouter();
   const db = getFirestore();
-
   const { login } = useUser();
 
-  // --- SIGNUP ---
-  async function handleSignup(e) {
-    e.preventDefault();
-    setSignupForm({ ...signupForm, error: "", success: "" });
-    setLoading(true);
-    try {
-      const usersRef = collection(db, "users");
-
-      // Check email or username not taken
-      const q = query(
-        usersRef,
-        where("email", "==", signupForm.email)
-      );
-      const q2 = query(
-        usersRef,
-        where("username", "==", signupForm.username)
-      );
-      const [emailSnap, usernameSnap] = await Promise.all([
-        getDocs(q),
-        getDocs(q2)
-      ]);
-      if (!signupForm.email || !signupForm.password || !signupForm.username) {
-        setSignupForm(f => ({ ...f, error: "All fields are required." }));
-        setLoading(false);
-        return;
-      }
-      if (emailSnap.size > 0) {
-        setSignupForm(f => ({ ...f, error: "Email already in use." }));
-        setLoading(false);
-        return;
-      }
-      if (usernameSnap.size > 0) {
-        setSignupForm(f => ({ ...f, error: "Username already in use." }));
-        setLoading(false);
-        return;
-      }
-
-      // Save user with hashed password
-      const hashed = await hashPassword(signupForm.password);
-
-      await addDoc(usersRef, {
-        email: signupForm.email.toLowerCase(),
-        username: signupForm.username,
-        password: hashed,
-        createdAt: Date.now(),
-      });
-
-      setSignupForm({ email: "", password: "", username: "", error: "", success: "Sign up successful! You can now log in." });
-      setMode("login");
-    } catch (error) {
-      setSignupForm(f => ({ ...f, error: "Sign up failed. Try again." }));
-    }
-    setLoading(false);
-  }
-
-  // --- LOGIN ---
   async function handleLogin(e) {
     e.preventDefault();
     setLoginForm({ ...loginForm, error: "" });
     setLoading(true);
     try {
       const usersRef = collection(db, "users");
-      let userSnap = null;
-      // Try to find user by email or username
       const qEmail = query(usersRef, where("email", "==", loginForm.userOrEmail.toLowerCase()));
-      const emailSnap = await getDocs(qEmail);
-      if (emailSnap.size > 0) {
-        userSnap = emailSnap.docs[0];
-      } else {
-        const qUsername = query(usersRef, where("username", "==", loginForm.userOrEmail));
-        const usernameSnap = await getDocs(qUsername);
-        if (usernameSnap.size > 0) {
-          userSnap = usernameSnap.docs[0];
-        }
-      }
+      const qUser = query(usersRef, where("username", "==", loginForm.userOrEmail));
+      
+      const [emailSnap, userSnap] = await Promise.all([getDocs(qEmail), getDocs(qUser)]);
+      let userDoc = null;
 
-      if (!userSnap) {
-        setLoginForm(f => ({ ...f, error: "User not found." }));
+      if (!emailSnap.empty) userDoc = emailSnap.docs[0];
+      else if (!userSnap.empty) userDoc = userSnap.docs[0];
+
+      if (!userDoc) {
+        setLoginForm(f => ({ ...f, error: "Invalid username or password." }));
         setLoading(false);
         return;
       }
-      // Check password
+
+      const userData = userDoc.data();
       const hashed = await hashPassword(loginForm.password);
-      if (userSnap.data().password !== hashed) {
-        setLoginForm(f => ({ ...f, error: "Incorrect password." }));
+
+      if (userData.password !== hashed) {
+        setLoginForm(f => ({ ...f, error: "Invalid username or password." }));
         setLoading(false);
         return;
       }
 
-      // Store user data in context and localStorage
-      const userData = {
-        id: userSnap.id,
-        username: userSnap.data().username,
-        email: userSnap.data().email,
-      };
       login(userData);
-
-      // Upon successful login, redirect to home page
       router.push("/");
-    } catch (err) {
-      setLoginForm(f => ({ ...f, error: "Login failed, try again." }));
+    } catch (error) {
+      console.error(error);
+      setLoginForm(f => ({ ...f, error: "Something went wrong. Please try again." }));
     }
     setLoading(false);
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-black">
-      <div className="w-full max-w-md bg-white dark:bg-zinc-900 rounded-xl shadow p-8">
-        <div className="flex justify-between">
-          <button
-            className={`text-lg font-bold ${mode === "login" ? "text-blue-600" : "text-zinc-700 dark:text-zinc-300"}`}
-            onClick={() => setMode("login")}
-          >Login</button>
-          <button
-            className={`text-lg font-bold ${mode === "signup" ? "text-blue-600" : "text-zinc-700 dark:text-zinc-300"}`}
-            onClick={() => setMode("signup")}
-          >Sign Up</button>
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+      <div className="flex flex-col w-full max-w-[350px]">
+        {/* Main Login Box */}
+        <div className="bg-white border border-zinc-300 rounded-sm p-8 mb-4">
+          <div className="flex justify-center mb-8">
+            <h1 className="text-[3rem] font-bold italic" style={{ fontFamily: 'Billabong, "Brush Script MT", cursive' }}>
+              Socio Gram
+            </h1>
+          </div>
+
+          <form onSubmit={handleLogin} className="flex flex-col space-y-2">
+            <input
+              type="text"
+              placeholder="Phone number, username, or email"
+              className="w-full bg-zinc-50 border border-zinc-300 rounded-sm px-2 py-2 text-xs focus:outline-none focus:border-zinc-400 placeholder-zinc-500"
+              value={loginForm.userOrEmail}
+              onChange={(e) => setLoginForm({ ...loginForm, userOrEmail: e.target.value })}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full bg-zinc-50 border border-zinc-300 rounded-sm px-2 py-2 text-xs focus:outline-none focus:border-zinc-400 placeholder-zinc-500"
+              value={loginForm.password}
+              onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+            />
+            
+            <button
+              type="submit"
+              disabled={loading || !loginForm.userOrEmail || !loginForm.password}
+              className={`w-full bg-[#0095f6] text-white rounded-[4px] py-1.5 font-semibold text-sm mt-2 ${
+                loading || !loginForm.userOrEmail || !loginForm.password ? "opacity-70" : "hover:bg-[#1877f2]"
+              }`}
+            >
+              {loading ? "Logging in..." : "Log in"}
+            </button>
+            
+            {loginForm.error && (
+              <p className="text-red-500 text-xs text-center mt-2">{loginForm.error}</p>
+            )}
+
+            <div className="flex items-center my-4">
+              <div className="h-[1px] bg-zinc-300 flex-1"></div>
+              <span className="px-4 text-[13px] font-semibold text-zinc-500">OR</span>
+              <div className="h-[1px] bg-zinc-300 flex-1"></div>
+            </div>
+
+            <button type="button" className="flex items-center justify-center text-[#385185] font-semibold text-sm hover:text-opacity-80">
+              <Facebook className="w-5 h-5 mr-2" fill="currentColor" />
+              Log in with Facebook
+            </button>
+
+            <button type="button" className="text-xs text-[#00376b] mt-3 text-center w-full">
+              Forgot password?
+            </button>
+          </form>
         </div>
 
-        {mode === "signup" && (
-          <form className="mt-8 flex flex-col gap-3" onSubmit={handleSignup}>
-            <input
-              type="email"
-              className="px-4 py-2 border border-zinc-400 rounded"
-              placeholder="Email"
-              value={signupForm.email}
-              onChange={e => setSignupForm(f => ({ ...f, email: e.target.value }))}
-              autoComplete="off"
-              required
-            />
-            <input
-              type="text"
-              className="px-4 py-2 border border-zinc-400 rounded"
-              placeholder="Username"
-              value={signupForm.username}
-              onChange={e => setSignupForm(f => ({ ...f, username: e.target.value }))}
-              autoComplete="off"
-              required
-            />
-            <input
-              type="password"
-              className="px-4 py-2 border border-zinc-400 rounded"
-              placeholder="Password"
-              value={signupForm.password}
-              onChange={e => setSignupForm(f => ({ ...f, password: e.target.value }))}
-              required
-            />
-            {signupForm.error && <div className="text-red-600">{signupForm.error}</div>}
-            {signupForm.success && <div className="text-green-600">{signupForm.success}</div>}
-            <button
-              className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60"
-              disabled={loading}
-              type="submit"
-            >{loading ? "Signing up..." : "Sign Up"}</button>
-          </form>
-        )}
+        {/* Sign Up Box */}
+        <div className="bg-white border border-zinc-300 rounded-sm p-5 text-center">
+          <p className="text-sm">
+            Don't have an account?{" "}
+            <Link href="/signUp" className="text-[#0095f6] font-semibold">
+              Sign up
+            </Link>
+          </p>
+        </div>
 
-        {mode === "login" && (
-          <form className="mt-8 flex flex-col gap-3" onSubmit={handleLogin}>
-            <input
-              type="text"
-              className="px-4 py-2 border border-zinc-400 rounded"
-              placeholder="Email or Username"
-              value={loginForm.userOrEmail}
-              onChange={e => setLoginForm(f => ({ ...f, userOrEmail: e.target.value }))}
-              autoComplete="off"
-              required
-            />
-            <input
-              type="password"
-              className="px-4 py-2 border border-zinc-400 rounded"
-              placeholder="Password"
-              value={loginForm.password}
-              onChange={e => setLoginForm(f => ({ ...f, password: e.target.value }))}
-              required
-            />
-            {loginForm.error && <div className="text-red-600">{loginForm.error}</div>}
-            <button
-              className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60"
-              disabled={loading}
-              type="submit"
-            >{loading ? "Logging in..." : "Login"}</button>
-          </form>
-        )}
+        {/* Get the app (Optional placeholder) */}
+        <div className="mt-4 text-center">
+            <p className="text-sm text-zinc-600 mb-4">Get the app.</p>
+            <div className="flex justify-center space-x-2">
+                <img src="https://static.cdninstagram.com/rsrc.php/v3/yt/r/Yfc020c87j0.png" alt="Get it on Google Play" className="h-10" />
+                <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="Get it from Microsoft" className="h-10" />
+            </div>
+        </div>
       </div>
+      
+       {/* Footer */}
+       <footer className="mt-16 flex flex-col items-center gap-4 text-xs text-zinc-500">
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+            <span>Meta</span>
+            <span>About</span>
+            <span>Blog</span>
+            <span>Jobs</span>
+            <span>Help</span>
+            <span>API</span>
+            <span>Privacy</span>
+            <span>Terms</span>
+            <span>Locations</span>
+            <span>Socio Gram Lite</span>
+            <span>Threads</span>
+            <span>Contact Uploading & Non-Users</span>
+            <span>Meta Verified</span>
+        </div>
+        <div>
+            © 2026 Socio Gram
+        </div>
+      </footer>
     </div>
   );
 }
