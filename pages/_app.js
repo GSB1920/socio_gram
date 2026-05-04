@@ -10,8 +10,13 @@ function AuthGuard({ children }) {
   useEffect(() => {
     if (!loading) {
       // If user is not logged in and trying to access restricted pages
-      if (!user && router.pathname !== '/signIn' && router.pathname !== '/signUp') {
-        router.push('/signIn');
+      if (
+        !user &&
+        router.pathname !== "/signIn" &&
+        router.pathname !== "/signUp" &&
+        router.pathname !== "/offline"
+      ) {
+        router.push("/signIn");
       }
       // If user is logged in and trying to access auth pages
       if (user && (router.pathname === '/signIn' || router.pathname === '/signUp')) {
@@ -29,8 +34,13 @@ function AuthGuard({ children }) {
   }
 
   // If on auth pages and not logged in, render them
-  if (!user && (router.pathname === '/signIn' || router.pathname === '/signUp')) {
-      return children;
+  if (
+    !user &&
+    (router.pathname === "/signIn" ||
+      router.pathname === "/signUp" ||
+      router.pathname === "/offline")
+  ) {
+    return children;
   }
 
   // If logged in, render the app

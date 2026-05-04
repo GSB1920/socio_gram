@@ -2,9 +2,9 @@ import { useState } from "react";
 
 // Dynamically import the CreateBlog, SFCPage, and StaticImagePage components so they don't SSR by default (important for Next.js + modals)
 import dynamic from "next/dynamic";
-const CreateBlog = dynamic(() => import("./post/blog"), { ssr: false });
-const SFCPage = dynamic(() => import("./post/sfc"), { ssr: false });
-const StaticImagePage = dynamic(() => import("./post/staticImage"), { ssr: false });
+const CreateBlog = dynamic(() => import("./blog"), { ssr: false });
+const SFCPage = dynamic(() => import("./sfc"), { ssr: false });
+const StaticImagePage = dynamic(() => import("./staticImage"), { ssr: false });
 
 export default function HomePage() {
   const [showBlogModal, setShowBlogModal] = useState(false);
