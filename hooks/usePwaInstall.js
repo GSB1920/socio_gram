@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
-const MOBILE_MEDIA = "(max-width: 1023px)";
+const MOBILE_MEDIA = "(max-width: 767px)";
+const TABLET_MEDIA = "(min-width: 768px) and (max-width: 1023px)";
 
 function getIsInstalled() {
   if (typeof window === "undefined") return false;
@@ -35,6 +36,7 @@ export function getInstallHint({ isIOS, isAndroid, hasNativePrompt }) {
 /**
  * Captures beforeinstallprompt for Chromium install UI.
  * Native prompt requires production build + HTTPS (Serwist disables SW in dev).
+ * Viewport tiers: mobile <768px, tablet 768–1023px, desktop >=1024px.
  */
 export default function usePwaInstall({ alwaysShow = false } = {}) {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -42,6 +44,7 @@ export default function usePwaInstall({ alwaysShow = false } = {}) {
   const [isIOS, setIsIOS] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -54,12 +57,20 @@ export default function usePwaInstall({ alwaysShow = false } = {}) {
     setReady(true);
 
     const mobileMq = window.matchMedia(MOBILE_MEDIA);
-    const updateMobile = () => setIsMobile(mobileMq.matches);
-    updateMobile();
-    mobileMq.addEventListener("change", updateMobile);
+    const tabletMq = window.matchMedia(TABLET_MEDIA);
+    const updateViewport = () => {
+      setIsMobile(mobileMq.matches);
+      setIsTablet(tabletMq.matches);
+    };
+    updateViewport();
+    mobileMq.addEventListener("change", updateViewport);
+    tabletMq.addEventListener("change", updateViewport);
 
     if (installed) {
-      return () => mobileMq.removeEventListener("change", updateMobile);
+      return () => {
+        mobileMq.removeEventListener("change", updateViewport);
+        tabletMq.removeEventListener("change", updateViewport);
+      };
     }
 
     const onBeforeInstall = (e) => {
@@ -76,7 +87,8 @@ export default function usePwaInstall({ alwaysShow = false } = {}) {
     window.addEventListener("appinstalled", onInstalled);
 
     return () => {
-      mobileMq.removeEventListener("change", updateMobile);
+      mobileMq.removeEventListener("change", updateViewport);
+      tabletMq.removeEventListener("change", updateViewport);
       window.removeEventListener("beforeinstallprompt", onBeforeInstall);
       window.removeEventListener("appinstalled", onInstalled);
     };
@@ -86,7 +98,7 @@ export default function usePwaInstall({ alwaysShow = false } = {}) {
   const canShow =
     ready &&
     !isInstalled &&
-    (hasNativePrompt || isIOS || isMobile || alwaysShow);
+    (hasNativePrompt || isIOS || isMobile || isTablet || alwaysShow);
 
   const promptInstall = useCallback(async () => {
     if (deferredPrompt) {
@@ -109,6 +121,7 @@ export default function usePwaInstall({ alwaysShow = false } = {}) {
     isIOS,
     isAndroid,
     isMobile,
+    isTablet,
     ready,
     hasNativePrompt,
     installHint,

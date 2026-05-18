@@ -8,6 +8,9 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --nav-height: 4rem;
   --header-height: 3rem;
+  /* Responsive tiers: mobile <768px, tablet 768–1023px, desktop >=1024px */
+  --bp-tablet: 768px;
+  --bp-desktop: 1024px;
 }
 
 @theme inline {

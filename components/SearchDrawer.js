@@ -84,13 +84,13 @@ export default function SearchDrawer({ isOpen, onClose }) {
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 z-[60] bg-black/40 lg:bg-black/5"
+          className="fixed inset-0 z-[60] bg-black/40 md:bg-black/5"
           onClick={onClose}
           aria-hidden
         />
       )}
       <div
-        className={`fixed top-0 z-[70] h-full w-full max-w-full border-r border-zinc-200 bg-white shadow-xl transition-transform duration-300 ease-in-out dark:border-zinc-800 dark:bg-black lg:left-[72px] lg:w-[397px] ${
+        className={`fixed top-0 z-[70] h-full w-full max-w-full border-r border-zinc-200 bg-white shadow-xl transition-transform duration-300 ease-in-out dark:border-zinc-800 dark:bg-black md:left-[72px] md:w-[397px] ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -101,7 +101,7 @@ export default function SearchDrawer({ isOpen, onClose }) {
               <button
                 type="button"
                 onClick={onClose}
-                className="flex min-h-11 min-w-11 items-center justify-center rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 lg:hidden"
+                className="flex min-h-11 min-w-11 items-center justify-center rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-900 md:hidden"
                 aria-label="Close search"
               >
                 <X className="h-6 w-6" />

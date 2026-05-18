@@ -79,7 +79,7 @@ export default function SignUpPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white px-4 py-8">
-      <div className="mx-auto flex w-full max-w-sm flex-col">
+      <div className="mx-auto flex w-full max-w-sm flex-col md:max-w-md">
         {/* Main Signup Box */}
         <div className="bg-white border border-zinc-300 rounded-sm p-8 mb-4">
           <div className="flex justify-center mb-4">

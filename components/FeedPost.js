@@ -96,7 +96,7 @@ export default function FeedPost({ item }) {
 
       {/* Content based on type */}
       {item.type === 'image' && item.staticImageLink && (
-        <MediaFrame variant="feed" className="rounded-none border-x-0 lg:rounded-sm lg:border-x">
+        <MediaFrame variant="feed" className="rounded-none border-x-0 md:rounded-sm md:border-x">
           <img
             src={item.staticImageLink}
             alt={item.caption || "Image"}
@@ -106,7 +106,7 @@ export default function FeedPost({ item }) {
       )}
 
       {item.type === 'sfc' && item.sfcLink && (
-        <MediaFrame variant="feed" className="rounded-none border-x-0 lg:rounded-sm lg:border-x">
+        <MediaFrame variant="feed" className="rounded-none border-x-0 md:rounded-sm md:border-x">
           <video
             src={item.sfcLink}
             controls

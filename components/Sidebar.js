@@ -50,7 +50,7 @@ export default function Sidebar({
   return (
     <>
       <div
-        className={`fixed left-0 top-0 z-50 hidden h-full flex-col border-r border-zinc-200 bg-white transition-all duration-300 ease-in-out dark:border-zinc-800 dark:bg-black lg:flex ${expanded ? "w-[245px] px-3" : "w-[72px] items-center px-3"}`}
+        className={`fixed left-0 top-0 z-50 hidden h-full flex-col border-r border-zinc-200 bg-white transition-all duration-300 ease-in-out dark:border-zinc-800 dark:bg-black md:flex ${expanded ? "w-[245px] px-3" : "w-[72px] items-center px-3"}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

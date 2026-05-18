@@ -79,7 +79,7 @@ export default function ExplorePage() {
 
   return (
     <Layout>
-      <div className="mx-auto max-w-full px-2 py-3 lg:max-w-5xl lg:px-4 lg:py-4">
+      <div className="mx-auto max-w-full px-2 py-3 md:mx-auto md:max-w-3xl md:px-4 lg:max-w-5xl lg:py-4">
         <div className="relative mb-6">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <Search className="h-4 w-4 text-zinc-400" />
@@ -106,8 +106,8 @@ export default function ExplorePage() {
               const isTall = idx % 10 === 3;
 
               let spanClass = "";
-              if (isLarge) spanClass = "lg:col-span-2 lg:row-span-2";
-              else if (isTall) spanClass = "lg:row-span-2";
+              if (isLarge) spanClass = "md:col-span-2 md:row-span-2";
+              else if (isTall) spanClass = "md:row-span-2";
 
               return (
                 <div

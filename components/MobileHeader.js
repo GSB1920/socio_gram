@@ -21,7 +21,7 @@ export default function MobileHeader() {
     }`;
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 border-b border-zinc-200 bg-white pt-safe dark:border-zinc-800 dark:bg-black lg:hidden">
+    <header className="fixed left-0 right-0 top-0 z-40 border-b border-zinc-200 bg-white pt-safe dark:border-zinc-800 dark:bg-black md:hidden">
       <div className="flex h-12 items-center justify-between px-3">
         <Link
           href="/"

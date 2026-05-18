@@ -16,7 +16,7 @@ import { useUser } from "../contexts/UserContext";
 function Backdrop({ onClose }) {
   return (
     <div
-      className="fixed inset-0 z-[55] bg-black/40 lg:hidden"
+      className="fixed inset-0 z-[55] bg-black/40 md:hidden"
       onClick={onClose}
       aria-hidden
     />
@@ -64,7 +64,7 @@ export default function MobileNav({
 
       {showCreateMenu && (
         <div
-          className="fixed left-0 right-0 z-[56] px-4 lg:hidden"
+          className="fixed left-0 right-0 z-[56] px-4 md:hidden"
           style={{
             bottom: "calc(var(--nav-height) + env(safe-area-inset-bottom, 0px))",
           }}
@@ -99,7 +99,7 @@ export default function MobileNav({
       )}
 
       <nav
-        className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black lg:hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-black md:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
       >
         <div className="flex h-16 items-center justify-around px-2">

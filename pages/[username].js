@@ -103,11 +103,11 @@ export default function UserProfilePage() {
 
   return (
     <Layout>
-      <div className="mx-auto max-w-full px-2 py-4 lg:max-w-4xl lg:px-4 lg:py-8">
+      <div className="mx-auto max-w-full px-2 py-4 md:mx-auto md:max-w-2xl md:px-4 lg:max-w-4xl lg:py-8">
         {/* Profile Header */}
-        <div className="mb-8 flex flex-col items-center lg:mb-12 lg:flex-row lg:items-start lg:space-x-12">
+        <div className="mb-8 flex flex-col items-center md:mb-10 md:flex-row md:items-start md:space-x-8 lg:mb-12 lg:space-x-12">
           {/* Avatar */}
-          <div className="mb-4 h-20 w-20 flex-shrink-0 rounded-full bg-zinc-200 p-[2px] dark:bg-zinc-800 lg:mb-0 lg:h-36 lg:w-36">
+          <div className="mb-4 h-20 w-20 flex-shrink-0 rounded-full bg-zinc-200 p-[2px] dark:bg-zinc-800 md:mb-0 md:h-28 md:w-28 lg:h-36 lg:w-36">
              <img 
                 src={profileUser.img || profileUser.photoURL || `https://ui-avatars.com/api/?name=${profileUser.username}&background=random&size=150`} 
                 alt="Profile" 
@@ -116,12 +116,12 @@ export default function UserProfilePage() {
           </div>
 
           {/* Info */}
-          <div className="flex flex-1 flex-col items-center lg:items-start">
-             <div className="mb-4 flex w-full flex-col items-center gap-4 lg:flex-row lg:justify-start">
+          <div className="flex flex-1 flex-col items-center md:items-start">
+             <div className="mb-4 flex w-full flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-center lg:justify-start">
                 <h2 className="text-xl text-black dark:text-zinc-50">{profileUser.username}</h2>
                 
                 {isCurrentUser ? (
-                    <div className="flex w-full max-w-xs flex-col gap-2 lg:max-w-none lg:flex-row lg:flex-wrap lg:justify-start">
+                    <div className="flex w-full max-w-xs flex-col gap-2 md:max-w-none md:flex-row md:flex-wrap md:justify-center lg:justify-start">
                         <button type="button" className="rounded-lg bg-zinc-100 px-4 py-1.5 text-sm font-semibold text-black hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700">
                             Edit profile
                         </button>
@@ -174,7 +174,7 @@ export default function UserProfilePage() {
              </div>
 
              {/* Bio */}
-             <div className="text-center text-sm lg:text-left">
+             <div className="text-center text-sm md:text-left">
                 <div className="font-semibold text-black dark:text-white">{profileUser.fullName}</div>
                 <div className="text-black dark:text-zinc-50 whitespace-pre-wrap">{profileUser.bio || 'Digital Creator 📸'}</div>
              </div>
@@ -183,42 +183,42 @@ export default function UserProfilePage() {
 
         {/* Tabs */}
         <div className="border-t border-zinc-200 dark:border-zinc-800">
-            <div className="flex justify-center space-x-6 lg:space-x-12">
+            <div className="flex justify-center space-x-6 md:space-x-10 lg:space-x-12">
                 <button 
                     onClick={() => setActiveTab('posts')}
-                    className={`flex items-center space-x-2 py-3 border-t lg:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'posts' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 border-t py-3 text-xs font-semibold uppercase tracking-widest transition-colors md:border-t-2 lg:border-t-2 ${activeTab === 'posts' ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <Grid className="w-3 h-3" />
-                    <span className="hidden lg:block">Posts</span>
+                    <span className="hidden md:inline">Posts</span>
                 </button>
                 <button 
                     onClick={() => setActiveTab('reels')}
-                    className={`flex items-center space-x-2 py-3 border-t lg:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'reels' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 border-t py-3 text-xs font-semibold uppercase tracking-widest transition-colors md:border-t-2 ${activeTab === 'reels' ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <Clapperboard className="w-3 h-3" />
-                    <span className="hidden lg:block">Reels</span>
+                    <span className="hidden md:inline">Reels</span>
                 </button>
                 {isCurrentUser && (
                     <button 
                         onClick={() => setActiveTab('saved')}
-                        className={`flex items-center space-x-2 py-3 border-t lg:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'saved' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
+                        className={`flex items-center space-x-2 border-t py-3 text-xs font-semibold uppercase tracking-widest transition-colors md:border-t-2 ${activeTab === 'saved' ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-zinc-500'}`}
                     >
                         <Bookmark className="w-3 h-3" />
-                        <span className="hidden lg:block">Saved</span>
+                        <span className="hidden md:inline">Saved</span>
                     </button>
                 )}
                 <button 
                     onClick={() => setActiveTab('tagged')}
-                    className={`flex items-center space-x-2 py-3 border-t lg:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'tagged' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 border-t py-3 text-xs font-semibold uppercase tracking-widest transition-colors md:border-t-2 ${activeTab === 'tagged' ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <UserSquare2 className="w-3 h-3" />
-                    <span className="hidden lg:block">Tagged</span>
+                    <span className="hidden md:inline">Tagged</span>
                 </button>
             </div>
         </div>
 
         {/* Grid Content */}
-        <div className={`grid gap-0.5 lg:gap-8 ${activeTab === 'reels' ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-3'}`}>
+        <div className={`grid gap-0.5 md:gap-2 lg:gap-8 ${activeTab === 'reels' ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-3'}`}>
             {activeTab === 'posts' && (
                 posts.length > 0 ? posts.map(item => (
                     <div 
