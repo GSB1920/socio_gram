@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import '../lib/firebase';
 import FeedPost from './FeedPost';
+import InstallPwaButton from './InstallPwaButton';
 
 function Stories() {
   const [stories, setStories] = useState([]);
@@ -96,6 +97,7 @@ export default function Feed() {
 
   return (
     <div className="mx-auto flex w-full max-w-full flex-col gap-4 pb-8 lg:max-w-[470px]">
+      <InstallPwaButton variant="outline" className="w-full sm:w-auto" />
       <Stories />
 
       {items.map(item => (
