@@ -66,8 +66,8 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
-      <div className="flex flex-col w-full max-w-[350px]">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-white px-4 py-8">
+      <div className="mx-auto flex w-full max-w-sm flex-col">
         {/* Main Login Box */}
         <div className="bg-white border border-zinc-300 rounded-sm p-8 mb-4">
           <div className="flex justify-center mb-8">

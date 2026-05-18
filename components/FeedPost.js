@@ -105,7 +105,7 @@ export default function FeedPost({ item }) {
       )}
 
       {item.type === 'sfc' && item.sfcLink && (
-        <div className="w-full bg-black aspect-[4/5] max-h-[580px] rounded-sm overflow-hidden flex items-center justify-center">
+        <div className="flex aspect-[4/5] max-h-[70vh] w-full items-center justify-center overflow-hidden rounded-sm bg-black lg:max-h-[580px]">
           <video
             src={item.sfcLink}
             controls

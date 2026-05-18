@@ -79,9 +79,9 @@ export default function SearchDrawer({ isOpen, onClose }) {
           onClick={onClose}
         />
       )}
-      <div 
-        className={`fixed top-0 left-[72px] h-full bg-white dark:bg-black border-r border-zinc-200 dark:border-zinc-800 z-40 transition-transform duration-300 ease-in-out w-[397px] shadow-xl ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+      <div
+        className={`fixed top-0 z-40 h-full w-full max-w-full border-r border-zinc-200 bg-white shadow-xl transition-transform duration-300 ease-in-out dark:border-zinc-800 dark:bg-black lg:left-[72px] lg:w-[397px] ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
       <div className="flex flex-col h-full">

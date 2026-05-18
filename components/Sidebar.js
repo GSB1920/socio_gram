@@ -2,45 +2,47 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Home, Search, Compass, Clapperboard, MessageCircle, Heart, PlusSquare, Menu, FileText, Video, Image as ImageIcon, Camera, Settings, Activity, Bookmark, Moon, MessageSquareWarning, Repeat, LogOut } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
-import SearchDrawer from './SearchDrawer';
-
-export default function Sidebar({ onCreateClick }) {
+export default function Sidebar({
+  onCreateClick,
+  isSearchOpen,
+  onSearchToggle,
+  onSearchClose,
+}) {
   const { user, logout } = useUser();
   const [showCreateMenu, setShowCreateMenu] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const expanded = isHovered && !isSearchOpen; // Don't expand on hover if search is open
+  const expanded = isHovered && !isSearchOpen;
 
   // Helper to ensure icons have consistent stroke width
   const IconWrapper = ({ Icon, ...props }) => <Icon strokeWidth={2} {...props} />;
 
   const navItems = [
-    { icon: Home, label: 'Home', href: '/', onClick: () => setIsSearchOpen(false) },
-    { icon: Search, label: 'Search', onClick: () => setIsSearchOpen(!isSearchOpen) },
-    { icon: Compass, label: 'Explore', href: '/explore', onClick: () => setIsSearchOpen(false) },
-    { icon: Clapperboard, label: 'Reels', href: '/reels', onClick: () => setIsSearchOpen(false) },
-    { icon: MessageCircle, label: 'Messages', href: '/messages', onClick: () => setIsSearchOpen(false) },
-    { icon: Heart, label: 'Notifications', href: '/notifications', onClick: () => setIsSearchOpen(false) },
+    { icon: Home, label: 'Home', href: '/', onClick: onSearchClose },
+    { icon: Search, label: 'Search', onClick: onSearchToggle },
+    { icon: Compass, label: 'Explore', href: '/explore', onClick: onSearchClose },
+    { icon: Clapperboard, label: 'Reels', href: '/reels', onClick: onSearchClose },
+    { icon: MessageCircle, label: 'Messages', href: '/messages', onClick: onSearchClose },
+    { icon: Heart, label: 'Notifications', href: '/notifications', onClick: onSearchClose },
   ];
 
   const handleCreateClick = () => {
     setShowCreateMenu(!showCreateMenu);
     setShowMoreMenu(false);
-    setIsSearchOpen(false);
+    onSearchClose();
   };
 
   const handleMoreClick = () => {
     setShowMoreMenu(!showMoreMenu);
     setShowCreateMenu(false);
-    setIsSearchOpen(false);
+    onSearchClose();
   };
 
   return (
     <>
-      <div 
-        className={`fixed left-0 top-0 h-full border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black flex flex-col z-50 transition-all duration-300 ease-in-out ${expanded ? 'w-[245px] px-3' : 'w-[72px] px-3 items-center'}`}
+      <div
+        className={`fixed left-0 top-0 z-50 hidden h-full flex-col border-r border-zinc-200 bg-white transition-all duration-300 ease-in-out dark:border-zinc-800 dark:bg-black lg:flex ${expanded ? "w-[245px] px-3" : "w-[72px] items-center px-3"}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -96,21 +98,21 @@ export default function Sidebar({ onCreateClick }) {
               {showCreateMenu && expanded && (
                 <div className="absolute left-0 top-full mt-2 w-48 bg-white dark:bg-zinc-800 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.15)] border border-zinc-200 dark:border-zinc-700 py-2 z-50 overflow-hidden">
                   <button
-                    onClick={() => { onCreateClick('blog'); setShowCreateMenu(false); }}
+                    onClick={() => { onCreateClick?.('blog'); setShowCreateMenu(false); }}
                     className="w-full text-left px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-700 flex items-center space-x-3 transition-colors"
                   >
                     <FileText className="w-5 h-5 text-black dark:text-white" />
                     <span className="text-black dark:text-white">Post</span>
                   </button>
                   <button
-                    onClick={() => { onCreateClick('sfc'); setShowCreateMenu(false); }}
+                    onClick={() => { onCreateClick?.('sfc'); setShowCreateMenu(false); }}
                     className="w-full text-left px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-700 flex items-center space-x-3 transition-colors"
                   >
                     <Video className="w-5 h-5 text-black dark:text-white" />
                     <span className="text-black dark:text-white">Reel</span>
                   </button>
                   <button
-                    onClick={() => { onCreateClick('image'); setShowCreateMenu(false); }}
+                    onClick={() => { onCreateClick?.('image'); setShowCreateMenu(false); }}
                     className="w-full text-left px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-700 flex items-center space-x-3 transition-colors"
                   >
                     <ImageIcon className="w-5 h-5 text-black dark:text-white" />
@@ -199,7 +201,6 @@ export default function Sidebar({ onCreateClick }) {
         </div>
       </div>
 
-      <SearchDrawer isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 }

@@ -95,7 +95,7 @@ export default function Feed() {
   }
 
   return (
-    <div className="flex flex-col gap-4 max-w-[470px] mx-auto pb-8">
+    <div className="mx-auto flex w-full max-w-full flex-col gap-4 pb-8 lg:max-w-[470px]">
       <Stories />
 
       {items.map(item => (

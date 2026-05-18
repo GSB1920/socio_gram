@@ -125,7 +125,7 @@ export default function RightSidebar() {
       </div>
 
       <div className="text-xs text-zinc-400 uppercase">
-        © 2026 INSTAGRAM FROM META
+        © 2026 Socio Gram
       </div>
     </div>
   );

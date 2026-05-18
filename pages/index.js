@@ -24,10 +24,10 @@ export default function HomePage() {
 
       {/* Modals */}
       {showBlogModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
           <div className="relative w-full max-w-2xl">
             <button
-              className="absolute -right-3 -top-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-red-600 z-10"
+              className="absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white shadow hover:bg-red-600"
               onClick={() => setShowBlogModal(false)}
               aria-label="Close"
             >
@@ -41,10 +41,10 @@ export default function HomePage() {
       )}
 
       {showSFCModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
           <div className="relative w-full max-w-2xl">
             <button
-              className="absolute -right-3 -top-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-red-600 z-10"
+              className="absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white shadow hover:bg-red-600"
               onClick={() => setShowSFCModal(false)}
               aria-label="Close"
             >
@@ -58,10 +58,10 @@ export default function HomePage() {
       )}
 
       {showImageModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
           <div className="relative w-full max-w-2xl">
             <button
-              className="absolute -right-3 -top-3 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-red-600 z-10"
+              className="absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-white shadow hover:bg-red-600"
               onClick={() => setShowImageModal(false)}
               aria-label="Close"
             >

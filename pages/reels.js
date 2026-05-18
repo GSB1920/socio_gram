@@ -66,7 +66,7 @@ function ReelItem({ reel, isActive }) {
     };
 
     return (
-        <div className="relative w-full h-[calc(100vh-2rem)] md:h-[calc(100vh-40px)] bg-black snap-start flex-shrink-0 flex items-center justify-center rounded-lg overflow-hidden my-4 border border-zinc-800">
+        <div className="relative my-4 flex h-[calc(100dvh-4rem)] w-full flex-shrink-0 snap-start items-center justify-center overflow-hidden rounded-lg border border-zinc-800 bg-black lg:h-[calc(100vh-40px)]">
             {/* Video */}
             <video 
                 ref={videoRef}
@@ -97,7 +97,7 @@ function ReelItem({ reel, isActive }) {
             </div>
 
             {/* Side Actions */}
-            <div className="absolute bottom-4 right-2 flex flex-col items-center space-y-4">
+            <div className="absolute bottom-20 right-2 flex flex-col items-center space-y-4 lg:bottom-4">
                 <button onClick={handleLike} className="flex flex-col items-center">
                     <Heart className={`w-7 h-7 ${liked ? 'fill-red-500 text-red-500' : 'text-white'}`} strokeWidth={1.5} />
                     <span className="text-white text-xs mt-1">{likesCount}</span>
