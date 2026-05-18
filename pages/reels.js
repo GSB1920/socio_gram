@@ -66,7 +66,7 @@ function ReelItem({ reel, isActive }) {
     };
 
     return (
-        <div className="relative my-4 flex h-[calc(100dvh-4rem)] w-full flex-shrink-0 snap-start items-center justify-center overflow-hidden rounded-lg border border-zinc-800 bg-black lg:h-[calc(100vh-40px)]">
+        <div className="relative flex h-[calc(100dvh-var(--nav-height)-var(--safe-top)-var(--header-height))] w-full flex-shrink-0 snap-start items-center justify-center overflow-hidden bg-black lg:my-4 lg:h-[calc(100vh-40px)] lg:rounded-lg lg:border lg:border-zinc-800">
             {/* Video */}
             <video 
                 ref={videoRef}
@@ -159,14 +159,14 @@ export default function ReelsPage() {
 
   return (
     <Layout>
-      <div className="h-screen w-full flex justify-center bg-black">
+      <div className="flex h-[calc(100dvh-var(--nav-height)-var(--safe-top)-var(--header-height))] w-full justify-center bg-black lg:h-screen">
         <div 
             ref={containerRef}
             onScroll={handleScroll}
             className="w-full max-w-md h-full overflow-y-scroll snap-y snap-mandatory scrollbar-hide"
         >
             {reels.map((reel, idx) => (
-                <div key={reel.id} className="h-full w-full snap-start pt-4 px-2">
+                <div key={reel.id} className="h-full w-full snap-start lg:px-2 lg:pt-4">
                      <ReelItem reel={reel} isActive={idx === activeIndex} />
                 </div>
             ))}

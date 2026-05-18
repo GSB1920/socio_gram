@@ -5,9 +5,9 @@ export default function OfflinePage() {
   return (
     <>
       <Head>
-        <title>Offline · Sociogram</title>
+        <title>Offline · Socio Gram</title>
       </Head>
-      <div className="flex min-h-screen flex-col items-center justify-center bg-black px-6 text-center text-zinc-100">
+      <div className="flex min-h-dvh min-h-screen flex-col items-center justify-center bg-black px-6 pb-safe pt-safe text-center text-zinc-100">
         <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-900 ring-1 ring-zinc-800">
           <span className="text-2xl font-semibold tracking-tight text-white">
             S

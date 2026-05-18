@@ -71,22 +71,42 @@ export default function SearchDrawer({ isOpen, onClose }) {
     localStorage.setItem('recentSearches', JSON.stringify(newRecent));
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <>
       {isOpen && (
-        <div 
-          className="fixed inset-0 z-30 bg-black/5" 
+        <div
+          className="fixed inset-0 z-[65] bg-black/40 lg:bg-black/5"
           onClick={onClose}
+          aria-hidden
         />
       )}
       <div
-        className={`fixed top-0 z-40 h-full w-full max-w-full border-r border-zinc-200 bg-white shadow-xl transition-transform duration-300 ease-in-out dark:border-zinc-800 dark:bg-black lg:left-[72px] lg:w-[397px] ${
+        className={`fixed top-0 z-[70] h-full w-full max-w-full border-r border-zinc-200 bg-white shadow-xl transition-transform duration-300 ease-in-out dark:border-zinc-800 dark:bg-black lg:left-[72px] lg:w-[397px] ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-      <div className="flex flex-col h-full">
-        <div className="p-6 pb-2">
-          <h2 className="text-2xl font-semibold mb-8">Search</h2>
+      <div className="flex h-full flex-col">
+        <div className="pt-safe relative p-4 pb-2 lg:p-6">
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-4 top-[calc(var(--safe-top)+0.75rem)] flex min-h-11 min-w-11 items-center justify-center rounded-lg text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900 lg:hidden"
+            aria-label="Close search"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <h2 className="mb-6 text-2xl font-semibold lg:mb-8">Search</h2>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-4 w-4 text-zinc-400" />
