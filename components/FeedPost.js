@@ -95,7 +95,7 @@ export default function FeedPost({ item }) {
 
       {/* Content based on type */}
       {item.type === 'image' && item.staticImageLink && (
-        <div className="w-full aspect-square bg-zinc-100 dark:bg-zinc-900 overflow-hidden rounded-sm border border-zinc-100 dark:border-zinc-800">
+        <div className="w-full aspect-square bg-zinc-100 dark:bg-zinc-900 overflow-hidden rounded-none border-x-0 lg:rounded-sm lg:border border-zinc-100 dark:border-zinc-800">
           <img
             src={item.staticImageLink}
             alt={item.caption || "Image"}
@@ -105,7 +105,7 @@ export default function FeedPost({ item }) {
       )}
 
       {item.type === 'sfc' && item.sfcLink && (
-        <div className="w-full bg-black aspect-[4/5] max-h-[580px] rounded-sm overflow-hidden flex items-center justify-center">
+        <div className="w-full bg-black aspect-[4/5] max-h-[min(65dvh,520px)] lg:max-h-[580px] rounded-none lg:rounded-sm overflow-hidden flex items-center justify-center">
           <video
             src={item.sfcLink}
             controls
@@ -115,7 +115,7 @@ export default function FeedPost({ item }) {
       )}
 
       {item.type === 'blog' && (
-        <div className="w-full p-6 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-sm">
+        <div className="w-full p-6 bg-zinc-50 dark:bg-zinc-900 border-x-0 lg:border border-zinc-100 dark:border-zinc-800 rounded-none lg:rounded-sm">
             <h2 className="text-xl font-bold mb-3 text-black dark:text-white">
             {item.title}
             </h2>

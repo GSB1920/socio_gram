@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Sidebar from './Sidebar';
 import RightSidebar from './RightSidebar';
+import MobileHeader from './MobileHeader';
+import MobileNav from './MobileNav';
 import { MessageCircle, Maximize2, X, ChevronLeft, Edit, Send } from 'lucide-react';
 
 export default function Layout({ children, onCreateClick }) {
@@ -30,13 +32,13 @@ export default function Layout({ children, onCreateClick }) {
 
   return (
     <div className="flex min-h-screen bg-white dark:bg-black text-black dark:text-white relative">
+      <MobileHeader />
+      <MobileNav onCreateClick={onCreateClick} />
       <Sidebar onCreateClick={onCreateClick} />
       
-      {/* Fixed narrow margin since sidebar expands on hover */}
-      <main className={`flex-1 ml-[72px] flex justify-center bg-white dark:bg-black transition-all duration-300 ease-in-out ${isMessagesPage ? 'overflow-hidden' : ''}`}>
-        <div className={`flex w-full ${isMessagesPage ? 'max-w-full' : 'max-w-[1000px]'} justify-center`}>
-            {/* Feed Container */}
-            <div className={`w-full ${isMessagesPage ? 'max-w-full p-0' : 'max-w-[630px] pt-8 px-4'} flex-shrink-0`}>
+      <main className={`flex-1 ml-0 lg:ml-[72px] flex justify-start bg-white dark:bg-black transition-all duration-300 ease-in-out ${isMessagesPage ? 'overflow-hidden' : ''}`}>
+        <div className={`flex w-full ${isMessagesPage ? 'max-w-full' : 'max-w-full lg:max-w-[1000px]'} justify-center`}>
+            <div className={`w-full ${isMessagesPage ? 'max-w-full p-0' : 'max-w-full lg:max-w-[630px] pt-mobile-header pb-nav-safe lg:pt-8 lg:pb-0 px-2 lg:px-4'} flex-shrink-0`}>
             {children}
             </div>
 
@@ -56,7 +58,7 @@ export default function Layout({ children, onCreateClick }) {
             {!isExpanded && (
                 <div 
                     onClick={() => setIsExpanded(true)}
-                    className="fixed bottom-4 right-4 z-50 bg-white dark:bg-zinc-800 shadow-[0_4px_12px_rgba(0,0,0,0.15)] rounded-full px-4 py-3 flex items-center space-x-3 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors border border-zinc-200 dark:border-zinc-700"
+                    className="hidden lg:flex fixed bottom-4 right-4 z-50 bg-white dark:bg-zinc-800 shadow-[0_4px_12px_rgba(0,0,0,0.15)] rounded-full px-4 py-3 items-center space-x-3 cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors border border-zinc-200 dark:border-zinc-700"
                 >
                     <div className="flex items-center -space-x-2">
                         <div className="w-6 h-6 rounded-full border-2 border-white dark:border-zinc-800 overflow-hidden">
@@ -75,7 +77,7 @@ export default function Layout({ children, onCreateClick }) {
 
             {/* Expanded Mini Window */}
             {isExpanded && (
-                <div className="fixed bottom-4 right-4 z-50 bg-white dark:bg-zinc-900 shadow-2xl rounded-t-xl rounded-b-none border border-zinc-200 dark:border-zinc-700 w-[330px] h-[400px] flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-200">
+                <div className="hidden lg:flex fixed bottom-4 right-4 z-50 bg-white dark:bg-zinc-900 shadow-2xl rounded-t-xl rounded-b-none border border-zinc-200 dark:border-zinc-700 w-[330px] h-[400px] flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-200">
                     {/* Header */}
                     <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
                         {activeMiniChat ? (
@@ -171,3 +173,4 @@ export default function Layout({ children, onCreateClick }) {
     </div>
   );
 }
+

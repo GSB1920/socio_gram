@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Home, Search, Compass, Clapperboard, MessageCircle, Heart, PlusSquare, Menu, FileText, Video, Image as ImageIcon, Camera, Settings, Activity, Bookmark, Moon, MessageSquareWarning, Repeat, LogOut } from 'lucide-react';
+import { useRouter } from 'next/router';
 import { useUser } from '../contexts/UserContext';
 import SearchDrawer from './SearchDrawer';
 
 export default function Sidebar({ onCreateClick }) {
   const { user, logout } = useUser();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/signIn');
+  };
   const [showCreateMenu, setShowCreateMenu] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -40,7 +47,7 @@ export default function Sidebar({ onCreateClick }) {
   return (
     <>
       <div 
-        className={`fixed left-0 top-0 h-full border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black flex flex-col z-50 transition-all duration-300 ease-in-out ${expanded ? 'w-[245px] px-3' : 'w-[72px] px-3 items-center'}`}
+        className={`hidden lg:flex fixed left-0 top-0 h-full border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black flex-col z-50 transition-all duration-300 ease-in-out ${expanded ? 'w-[245px] px-3' : 'w-[72px] px-3 items-center'}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -174,7 +181,7 @@ export default function Sidebar({ onCreateClick }) {
                 <div className="h-px bg-zinc-200 dark:bg-zinc-700 my-1.5 mx-2" />
                 <button 
                   onClick={() => {
-                    logout();
+                    handleLogout();
                     setShowMoreMenu(false);
                   }}
                   className="w-full text-left px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-700 flex items-center space-x-3 transition-colors"

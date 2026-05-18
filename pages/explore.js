@@ -39,7 +39,7 @@ export default function ExplorePage() {
 
   return (
     <Layout>
-      <div className="max-w-5xl mx-auto py-4 px-4">
+      <div className="max-w-full lg:max-w-5xl mx-auto py-3 lg:py-4 px-2 lg:px-4">
         {/* Search Bar */}
         <div className="mb-6 relative">
              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -60,8 +60,8 @@ export default function ExplorePage() {
                 const isTall = idx % 10 === 3;
                 
                 let spanClass = "";
-                if (isLarge) spanClass = "col-span-2 row-span-2";
-                else if (isTall) spanClass = "row-span-2";
+                if (isLarge) spanClass = "lg:col-span-2 lg:row-span-2";
+                else if (isTall) spanClass = "lg:row-span-2";
 
                 return (
                     <div key={item.id} className={`relative group bg-zinc-200 dark:bg-zinc-800 overflow-hidden ${spanClass}`}>

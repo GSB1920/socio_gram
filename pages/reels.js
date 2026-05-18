@@ -159,7 +159,7 @@ export default function ReelsPage() {
 
   return (
     <Layout>
-      <div className="h-screen w-full flex justify-center bg-black">
+      <div className="h-[calc(100dvh-var(--header-height)-var(--nav-height))] lg:h-screen w-full flex justify-center bg-black">
         <div 
             ref={containerRef}
             onScroll={handleScroll}

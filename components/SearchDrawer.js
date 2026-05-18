@@ -4,7 +4,7 @@ import { getFirestore, collection, query, where, getDocs, limit } from 'firebase
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-export default function SearchDrawer({ isOpen, onClose }) {
+export default function SearchDrawer({ isOpen, onClose, mobile = false }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
@@ -80,7 +80,9 @@ export default function SearchDrawer({ isOpen, onClose }) {
         />
       )}
       <div 
-        className={`fixed top-0 left-[72px] h-full bg-white dark:bg-black border-r border-zinc-200 dark:border-zinc-800 z-40 transition-transform duration-300 ease-in-out w-[397px] shadow-xl ${
+        className={`fixed top-0 h-full bg-white dark:bg-black border-r border-zinc-200 dark:border-zinc-800 z-40 transition-transform duration-300 ease-in-out shadow-xl ${
+          mobile ? 'left-0 w-full' : 'left-0 lg:left-[72px] w-full max-w-[397px]'
+        } ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -200,3 +202,4 @@ export default function SearchDrawer({ isOpen, onClose }) {
     </>
   );
 }
+

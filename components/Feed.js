@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import '../lib/firebase';
 import FeedPost from './FeedPost';
+import InstallPwaButton from './InstallPwaButton';
 
 function Stories() {
   const [stories, setStories] = useState([]);
@@ -27,8 +28,8 @@ function Stories() {
   return (
     <div className="flex space-x-4 overflow-x-auto py-4 bg-transparent mb-4 scrollbar-hide">
       {stories.map((story) => (
-        <div key={story.id} className="flex flex-col items-center space-y-1 min-w-[66px] cursor-pointer group">
-          <div className="w-[66px] h-[66px] rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600 p-[2px]">
+        <div key={story.id} className="flex flex-col items-center space-y-1 min-w-[56px] lg:min-w-[66px] cursor-pointer group">
+          <div className="w-14 h-14 lg:w-[66px] lg:h-[66px] rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600 p-[2px]">
             <div className="w-full h-full rounded-full bg-white dark:bg-black p-[2px]">
               <div className="w-full h-full rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
                 <img 
@@ -95,8 +96,9 @@ export default function Feed() {
   }
 
   return (
-    <div className="flex flex-col gap-4 max-w-[470px] mx-auto pb-8">
+    <div className="flex flex-col gap-4 w-full max-w-full lg:max-w-[470px] lg:mx-auto pb-8 -mx-2 lg:mx-auto px-0 lg:px-0">
       <Stories />
+      <InstallPwaButton className="px-2 lg:px-0" />
 
       {items.map(item => (
         <FeedPost key={item.id} item={item} />

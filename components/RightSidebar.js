@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useUser } from '../contexts/UserContext';
 import Link from 'next/link';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 export default function RightSidebar() {
   const { user, logout } = useUser();
+  const router = useRouter();
   const [suggestions, setSuggestions] = useState([]);
+
+  const handleLogout = () => {
+    logout();
+    router.push('/signIn');
+  };
 
   useEffect(() => {
     async function fetchSuggestions() {
@@ -67,10 +74,10 @@ export default function RightSidebar() {
           </div>
         </Link>
         <button 
-          onClick={logout}
+          onClick={handleLogout}
           className="text-xs font-semibold text-blue-500 hover:text-blue-700"
         >
-          Switch
+          Log out
         </button>
       </div>
 

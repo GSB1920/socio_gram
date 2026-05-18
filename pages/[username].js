@@ -98,11 +98,11 @@ export default function UserProfilePage() {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto md:px-4 py-8">
+      <div className="max-w-full lg:max-w-4xl mx-auto px-2 lg:px-4 py-4 lg:py-8">
         {/* Profile Header */}
-        <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-12 px-4 mb-12">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-12 px-2 lg:px-4 mb-8 lg:mb-12">
           {/* Avatar */}
-          <div className="w-20 h-20 md:w-36 md:h-36 rounded-full bg-zinc-200 dark:bg-zinc-800 p-[2px] mb-4 md:mb-0 flex-shrink-0">
+          <div className="w-20 h-20 lg:w-36 lg:h-36 rounded-full bg-zinc-200 dark:bg-zinc-800 p-[2px] mb-4 lg:mb-0 flex-shrink-0">
              <img 
                 src={profileUser.img || profileUser.photoURL || `https://ui-avatars.com/api/?name=${profileUser.username}&background=random&size=150`} 
                 alt="Profile" 
@@ -111,8 +111,8 @@ export default function UserProfilePage() {
           </div>
 
           {/* Info */}
-          <div className="flex-1 flex flex-col items-center md:items-start">
-             <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
+          <div className="flex-1 flex flex-col items-center lg:items-start">
+             <div className="flex flex-col lg:flex-row items-center gap-4 mb-4 w-full lg:w-auto">
                 <h2 className="text-xl text-black dark:text-zinc-50">{profileUser.username}</h2>
                 
                 {isCurrentUser ? (
@@ -149,7 +149,7 @@ export default function UserProfilePage() {
              </div>
 
              {/* Stats */}
-             <div className="flex space-x-8 mb-4 text-sm md:text-base">
+             <div className="flex space-x-8 mb-4 text-sm lg:text-base">
                 <div className="text-black dark:text-zinc-50">
                     <span className="font-bold">{posts.length + sfcs.length}</span> posts
                 </div>
@@ -162,7 +162,7 @@ export default function UserProfilePage() {
              </div>
 
              {/* Bio */}
-             <div className="text-sm text-center md:text-left">
+             <div className="text-sm text-center lg:text-left">
                 <div className="font-semibold text-black dark:text-white">{profileUser.fullName}</div>
                 <div className="text-black dark:text-zinc-50 whitespace-pre-wrap">{profileUser.bio || 'Digital Creator 📸'}</div>
              </div>
@@ -174,39 +174,39 @@ export default function UserProfilePage() {
             <div className="flex justify-center space-x-12">
                 <button 
                     onClick={() => setActiveTab('posts')}
-                    className={`flex items-center space-x-2 py-3 border-t md:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'posts' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 py-3 border-t lg:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'posts' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <Grid className="w-3 h-3" />
-                    <span className="hidden md:block">Posts</span>
+                    <span className="hidden lg:block">Posts</span>
                 </button>
                 <button 
                     onClick={() => setActiveTab('reels')}
-                    className={`flex items-center space-x-2 py-3 border-t md:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'reels' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 py-3 border-t lg:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'reels' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <Clapperboard className="w-3 h-3" />
-                    <span className="hidden md:block">Reels</span>
+                    <span className="hidden lg:block">Reels</span>
                 </button>
                 {isCurrentUser && (
                     <button 
                         onClick={() => setActiveTab('saved')}
-                        className={`flex items-center space-x-2 py-3 border-t md:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'saved' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
+                        className={`flex items-center space-x-2 py-3 border-t lg:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'saved' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
                     >
                         <Bookmark className="w-3 h-3" />
-                        <span className="hidden md:block">Saved</span>
+                        <span className="hidden lg:block">Saved</span>
                     </button>
                 )}
                 <button 
                     onClick={() => setActiveTab('tagged')}
-                    className={`flex items-center space-x-2 py-3 border-t md:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'tagged' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 py-3 border-t lg:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'tagged' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <UserSquare2 className="w-3 h-3" />
-                    <span className="hidden md:block">Tagged</span>
+                    <span className="hidden lg:block">Tagged</span>
                 </button>
             </div>
         </div>
 
         {/* Grid Content */}
-        <div className="grid grid-cols-3 gap-1 md:gap-8">
+        <div className="grid grid-cols-3 gap-1 lg:gap-8">
             {activeTab === 'posts' && (
                 posts.length > 0 ? posts.map(item => (
                     <div 

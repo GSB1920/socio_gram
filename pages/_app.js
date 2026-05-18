@@ -3,6 +3,17 @@ import { UserProvider, useUser } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
+function SerwistRegistration() {
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "production") return;
+    import("@serwist/window").then(({ Serwist }) => {
+      const serwist = new Serwist("/sw.js", { scope: "/" });
+      serwist.register();
+    });
+  }, []);
+  return null;
+}
+
 function AuthGuard({ children }) {
   const { user, loading } = useUser();
   const router = useRouter();
@@ -55,6 +66,7 @@ function AuthGuard({ children }) {
 export default function App({ Component, pageProps }) {
   return (
     <UserProvider>
+      <SerwistRegistration />
       <AuthGuard>
         <Component {...pageProps} />
       </AuthGuard>
