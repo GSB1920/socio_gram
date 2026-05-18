@@ -5,6 +5,7 @@ import { getFirestore, doc, updateDoc, arrayUnion, arrayRemove, collection, quer
 import { useUser } from "../contexts/UserContext";
 import CommentsDrawer from "./CommentsDrawer";
 import ShareModal from "./ShareModal";
+import MediaFrame from "./MediaFrame";
 
 export default function FeedPost({ item }) {
   const { user } = useUser();
@@ -95,23 +96,24 @@ export default function FeedPost({ item }) {
 
       {/* Content based on type */}
       {item.type === 'image' && item.staticImageLink && (
-        <div className="w-full aspect-square bg-zinc-100 dark:bg-zinc-900 overflow-hidden rounded-sm border border-zinc-100 dark:border-zinc-800">
+        <MediaFrame variant="feed">
           <img
             src={item.staticImageLink}
             alt={item.caption || "Image"}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
-        </div>
+        </MediaFrame>
       )}
 
       {item.type === 'sfc' && item.sfcLink && (
-        <div className="flex aspect-[4/5] max-h-[70vh] w-full items-center justify-center overflow-hidden rounded-sm bg-black lg:max-h-[580px]">
+        <MediaFrame variant="feed">
           <video
             src={item.sfcLink}
             controls
-            className="h-full w-full object-contain"
+            playsInline
+            className="h-full w-full object-cover"
           />
-        </div>
+        </MediaFrame>
       )}
 
       {item.type === 'blog' && (

@@ -100,23 +100,23 @@ export default function ExplorePage() {
             No content to explore yet.
           </p>
         ) : (
-          <div className="grid auto-rows-[140px] grid-cols-2 gap-1 sm:auto-rows-[180px] sm:grid-cols-3 md:auto-rows-[250px]">
+          <div className="grid grid-cols-3 gap-0.5 sm:gap-1">
             {items.map((item, idx) => {
               const isLarge = idx % 10 === 0;
               const isTall = idx % 10 === 3;
 
               let spanClass = "";
-              if (isLarge) spanClass = "col-span-2 row-span-2";
-              else if (isTall) spanClass = "row-span-2";
+              if (isLarge) spanClass = "sm:col-span-2 sm:row-span-2";
+              else if (isTall) spanClass = "sm:row-span-2";
 
               return (
                 <div
                   key={item.id}
-                  className={`group relative overflow-hidden bg-zinc-200 dark:bg-zinc-800 ${spanClass}`}
+                  className={`group relative aspect-square overflow-hidden bg-zinc-200 dark:bg-zinc-800 ${spanClass}`}
                 >
                   {item.type === "image" && (
                     <img
-                      src={item.imageUrl}
+                      src={item.staticImageLink || item.imageUrl}
                       alt=""
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
@@ -133,7 +133,7 @@ export default function ExplorePage() {
                   )}
                   {item.type === "blog" && (
                     <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-purple-500/10 to-blue-500/10 p-4 text-center text-sm">
-                      <p className="line-clamp-6 font-serif">{item.content}</p>
+                      <p className="line-clamp-6 font-serif">{item.title || item.body || item.content}</p>
                     </div>
                   )}
 

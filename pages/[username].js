@@ -218,7 +218,7 @@ export default function UserProfilePage() {
         </div>
 
         {/* Grid Content */}
-        <div className="grid grid-cols-3 gap-1 md:gap-8">
+        <div className={`grid gap-1 md:gap-8 ${activeTab === 'reels' ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-3'}`}>
             {activeTab === 'posts' && (
                 posts.length > 0 ? posts.map(item => (
                     <div 
@@ -258,7 +258,7 @@ export default function UserProfilePage() {
                         className="aspect-[9/16] relative group cursor-pointer bg-zinc-100 dark:bg-zinc-900"
                         onClick={() => setViewPost(item)}
                     >
-                         <video src={item.videoUrl || item.sfcLink} className="w-full h-full object-cover" />
+                         <video src={item.videoUrl || item.sfcLink} className="w-full h-full object-cover" playsInline muted />
                          <div className="absolute bottom-2 left-2 flex items-center text-white text-xs font-bold drop-shadow-md">
                             <Clapperboard className="w-3 h-3 mr-1" /> {item.likes || item.likeCount || 0}
                          </div>
