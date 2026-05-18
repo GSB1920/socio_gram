@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Facebook } from "lucide-react";
 import "../lib/firebase";
 import { useUser } from "@/contexts/UserContext";
+import InstallPwaButton from "@/components/InstallPwaButton";
 
 function hashPassword(password) {
   return crypto.subtle.digest("SHA-256", new TextEncoder().encode(password)).then((buf) =>
@@ -133,13 +134,10 @@ export default function SignInPage() {
           </p>
         </div>
 
-        {/* Get the app (Optional placeholder) */}
+        {/* Get the app */}
         <div className="mt-4 text-center">
-            <p className="text-sm text-zinc-600 mb-4">Get the app.</p>
-            <div className="flex justify-center space-x-2">
-                <img src="https://static.cdninstagram.com/rsrc.php/v3/yt/r/Yfc020c87j0.png" alt="Get it on Google Play" className="h-10" />
-                <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="Get it from Microsoft" className="h-10" />
-            </div>
+            <p className="mb-4 text-sm text-zinc-600">Get the app.</p>
+            <InstallPwaButton alwaysShow className="w-full" />
         </div>
       </div>
       

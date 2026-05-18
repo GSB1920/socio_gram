@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Heart, LogOut, MessageCircle } from "lucide-react";
 import { useUser } from "../contexts/UserContext";
+import InstallPwaButton from "./InstallPwaButton";
 
 export default function MobileHeader() {
   const router = useRouter();
@@ -30,6 +31,7 @@ export default function MobileHeader() {
           Socio Gram
         </Link>
         <div className="flex items-center gap-1">
+          <InstallPwaButton size="sm" variant="outline" />
           <Link href="/messages" aria-label="Messages" className={iconClass("/messages")}>
             <MessageCircle className="h-6 w-6" strokeWidth={2} />
           </Link>

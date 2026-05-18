@@ -1,5 +1,5 @@
 const VARIANT_CLASSES = {
-  feed: "w-full aspect-[4/5] max-h-[min(70dvh,580px)] overflow-hidden rounded-sm border border-zinc-100 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900",
+  feed: "w-full aspect-[4/5] max-h-[min(65dvh,520px)] overflow-hidden rounded-sm border border-zinc-100 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 lg:max-h-[min(70dvh,580px)]",
   square: "relative w-full aspect-square overflow-hidden bg-zinc-100 dark:bg-zinc-900",
   reel: "relative w-full aspect-[9/16] max-h-[70dvh] overflow-hidden bg-black",
   contain:

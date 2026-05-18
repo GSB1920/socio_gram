@@ -39,20 +39,20 @@ export default function Layout({ children }) {
       <CreateModals activeModal={activeCreateModal} onClose={closeCreateModal} />
 
       <main
-        className={`ml-0 flex min-h-0 flex-1 flex-col justify-center bg-white transition-all duration-300 ease-in-out dark:bg-black lg:ml-[72px] ${
+        className={`ml-0 flex min-h-0 flex-1 flex-col justify-start bg-white transition-all duration-300 ease-in-out dark:bg-black lg:ml-[72px] ${
           isMessagesPage ? "overflow-hidden" : "pb-nav-safe lg:pb-0"
         } pt-mobile-header lg:pt-0`}
       >
         <div
           className={`flex min-h-0 w-full flex-1 ${
-            isMessagesPage ? "max-w-full" : "max-w-[1000px]"
+            isMessagesPage ? "max-w-full" : "max-w-full lg:max-w-[1000px]"
           } justify-center`}
         >
           <div
             className={`w-full flex-shrink-0 ${
               isMessagesPage
                 ? "max-w-full p-0"
-                : "max-w-[630px] px-3 pt-4 sm:px-4 sm:pt-8 lg:px-4"
+                : "max-w-full px-2 pb-2 pt-2 lg:max-w-[630px] lg:px-4 lg:pb-0 lg:pt-8"
             } ${isMessagesPage ? "flex min-h-0 flex-1 flex-col" : ""}`}
           >
             {children}

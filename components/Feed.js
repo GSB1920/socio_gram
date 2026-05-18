@@ -26,10 +26,10 @@ function Stories() {
   if (stories.length === 0) return null;
 
   return (
-    <div className="flex space-x-4 overflow-x-auto py-4 bg-transparent mb-4 scrollbar-hide">
+    <div className="mb-4 flex space-x-4 overflow-x-auto bg-transparent px-2 py-4 scrollbar-hide lg:px-0">
       {stories.map((story) => (
-        <div key={story.id} className="flex min-w-[56px] cursor-pointer flex-col items-center space-y-1 group sm:min-w-[66px]">
-          <div className="h-14 w-14 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600 p-[2px] sm:h-[66px] sm:w-[66px]">
+        <div key={story.id} className="flex min-w-[56px] cursor-pointer flex-col items-center space-y-1 group lg:min-w-[66px]">
+          <div className="h-14 w-14 rounded-full bg-gradient-to-tr from-yellow-400 to-fuchsia-600 p-[2px] lg:h-[66px] lg:w-[66px]">
             <div className="w-full h-full rounded-full bg-white dark:bg-black p-[2px]">
               <div className="w-full h-full rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
                 <img 
@@ -96,8 +96,8 @@ export default function Feed() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-full flex-col gap-4 pb-8 lg:max-w-[470px]">
-      <InstallPwaButton variant="outline" className="w-full sm:w-auto" />
+    <div className="-mx-2 mx-auto flex w-full max-w-full flex-col gap-4 pb-8 lg:mx-0 lg:max-w-[470px]">
+      <InstallPwaButton variant="outline" className="mx-2 w-[calc(100%-1rem)] lg:mx-0 lg:w-full" />
       <Stories />
 
       {items.map(item => (

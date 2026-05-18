@@ -169,7 +169,7 @@ export default function SignUpPage() {
         {/* Get the app */}
         <div className="mt-4 text-center">
             <p className="mb-4 text-sm text-zinc-600">Get the app.</p>
-            <InstallPwaButton className="w-full" />
+            <InstallPwaButton alwaysShow className="w-full" />
         </div>
       </div>
       

@@ -75,7 +75,7 @@ export default function FeedPost({ item }) {
   return (
     <article className="w-full bg-white dark:bg-black border-b border-zinc-200 dark:border-zinc-800 pb-4 mb-4">
       {/* Header */}
-      <header className="flex items-center justify-between py-3 px-1">
+      <header className="flex items-center justify-between px-3 py-3 lg:px-1">
         <Link href={`/${item.username}`} className="flex items-center space-x-3 group">
             <div className="w-8 h-8 rounded-full overflow-hidden bg-zinc-200 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-800">
                 <img src={authorImg || `https://ui-avatars.com/api/?name=${item.username}&background=random`} alt={item.username} className="w-full h-full object-cover" />
@@ -96,7 +96,7 @@ export default function FeedPost({ item }) {
 
       {/* Content based on type */}
       {item.type === 'image' && item.staticImageLink && (
-        <MediaFrame variant="feed">
+        <MediaFrame variant="feed" className="rounded-none border-x-0 lg:rounded-sm lg:border-x">
           <img
             src={item.staticImageLink}
             alt={item.caption || "Image"}
@@ -106,7 +106,7 @@ export default function FeedPost({ item }) {
       )}
 
       {item.type === 'sfc' && item.sfcLink && (
-        <MediaFrame variant="feed">
+        <MediaFrame variant="feed" className="rounded-none border-x-0 lg:rounded-sm lg:border-x">
           <video
             src={item.sfcLink}
             controls
@@ -117,7 +117,7 @@ export default function FeedPost({ item }) {
       )}
 
       {item.type === 'blog' && (
-        <div className="w-full p-6 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-sm">
+        <div className="w-full border-y border-zinc-100 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900 lg:rounded-sm lg:border">
             <h2 className="text-xl font-bold mb-3 text-black dark:text-white">
             {item.title}
             </h2>
@@ -128,7 +128,7 @@ export default function FeedPost({ item }) {
       )}
 
       {/* Action Buttons */}
-      <div className="flex items-center justify-between px-1 py-3">
+      <div className="flex items-center justify-between px-3 py-3 lg:px-1">
         <div className="flex items-center space-x-4">
           <button onClick={handleLike} className="hover:opacity-60">
             <Heart className={`w-6 h-6 ${liked ? 'fill-red-500 text-red-500' : 'text-black dark:text-white'}`} />
