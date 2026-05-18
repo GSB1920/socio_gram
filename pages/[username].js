@@ -10,12 +10,7 @@ import PostDetailModal from "../components/PostDetailModal";
 export default function UserProfilePage() {
   const router = useRouter();
   const { username } = router.query;
-  const { user: currentUser, logout } = useUser();
-
-  const handleLogout = () => {
-    logout();
-    router.push("/signIn");
-  };
+  const { user: currentUser } = useUser();
   
   const [profileUser, setProfileUser] = useState(null);
   const [activeTab, setActiveTab] = useState("posts");
@@ -82,7 +77,7 @@ export default function UserProfilePage() {
   if (loading) {
     return (
         <Layout>
-            <div className="flex min-h-[50dvh] items-center justify-center">
+            <div className="flex justify-center items-center h-screen">
                 <div className="w-8 h-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full animate-spin"></div>
             </div>
         </Layout>
@@ -103,11 +98,11 @@ export default function UserProfilePage() {
 
   return (
     <Layout>
-      <div className="mx-auto max-w-full px-2 py-4 md:mx-auto md:max-w-2xl md:px-4 lg:max-w-4xl lg:py-8">
+      <div className="max-w-4xl mx-auto md:px-4 py-8">
         {/* Profile Header */}
-        <div className="mb-8 flex flex-col items-center md:mb-10 md:flex-row md:items-start md:space-x-8 lg:mb-12 lg:space-x-12">
+        <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-12 px-4 mb-12">
           {/* Avatar */}
-          <div className="mb-4 h-20 w-20 flex-shrink-0 rounded-full bg-zinc-200 p-[2px] dark:bg-zinc-800 md:mb-0 md:h-28 md:w-28 lg:h-36 lg:w-36">
+          <div className="w-20 h-20 md:w-36 md:h-36 rounded-full bg-zinc-200 dark:bg-zinc-800 p-[2px] mb-4 md:mb-0 flex-shrink-0">
              <img 
                 src={profileUser.img || profileUser.photoURL || `https://ui-avatars.com/api/?name=${profileUser.username}&background=random&size=150`} 
                 alt="Profile" 
@@ -116,27 +111,20 @@ export default function UserProfilePage() {
           </div>
 
           {/* Info */}
-          <div className="flex flex-1 flex-col items-center md:items-start">
-             <div className="mb-4 flex w-full flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-center lg:justify-start">
+          <div className="flex-1 flex flex-col items-center md:items-start">
+             <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
                 <h2 className="text-xl text-black dark:text-zinc-50">{profileUser.username}</h2>
                 
                 {isCurrentUser ? (
-                    <div className="flex w-full max-w-xs flex-col gap-2 md:max-w-none md:flex-row md:flex-wrap md:justify-center lg:justify-start">
-                        <button type="button" className="rounded-lg bg-zinc-100 px-4 py-1.5 text-sm font-semibold text-black hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700">
+                    <div className="flex space-x-2">
+                        <button className="px-4 py-1.5 bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white rounded-lg text-sm font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700">
                             Edit profile
                         </button>
-                        <button type="button" className="rounded-lg bg-zinc-100 px-4 py-1.5 text-sm font-semibold text-black hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700">
+                        <button className="px-4 py-1.5 bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white rounded-lg text-sm font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700">
                             View archive
                         </button>
-                        <button
-                          type="button"
-                          onClick={handleLogout}
-                          className="w-full rounded-lg border border-zinc-300 px-4 py-1.5 text-sm font-semibold text-red-600 hover:bg-red-50 dark:border-zinc-600 dark:text-red-400 dark:hover:bg-red-950/30 sm:w-auto"
-                        >
-                            Log out
-                        </button>
-                        <button type="button" className="hidden p-1.5 text-black dark:text-white sm:inline-flex">
-                            <Settings className="h-6 w-6" />
+                        <button className="p-1.5 text-black dark:text-white">
+                            <Settings className="w-6 h-6" />
                         </button>
                     </div>
                 ) : (
@@ -161,7 +149,7 @@ export default function UserProfilePage() {
              </div>
 
              {/* Stats */}
-             <div className="mb-4 flex space-x-8 text-sm lg:text-base">
+             <div className="flex space-x-8 mb-4 text-sm md:text-base">
                 <div className="text-black dark:text-zinc-50">
                     <span className="font-bold">{posts.length + sfcs.length}</span> posts
                 </div>
@@ -174,7 +162,7 @@ export default function UserProfilePage() {
              </div>
 
              {/* Bio */}
-             <div className="text-center text-sm md:text-left">
+             <div className="text-sm text-center md:text-left">
                 <div className="font-semibold text-black dark:text-white">{profileUser.fullName}</div>
                 <div className="text-black dark:text-zinc-50 whitespace-pre-wrap">{profileUser.bio || 'Digital Creator 📸'}</div>
              </div>
@@ -183,42 +171,42 @@ export default function UserProfilePage() {
 
         {/* Tabs */}
         <div className="border-t border-zinc-200 dark:border-zinc-800">
-            <div className="flex justify-center space-x-6 md:space-x-10 lg:space-x-12">
+            <div className="flex justify-center space-x-12">
                 <button 
                     onClick={() => setActiveTab('posts')}
-                    className={`flex items-center space-x-2 border-t py-3 text-xs font-semibold uppercase tracking-widest transition-colors md:border-t-2 lg:border-t-2 ${activeTab === 'posts' ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 py-3 border-t md:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'posts' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <Grid className="w-3 h-3" />
-                    <span className="hidden md:inline">Posts</span>
+                    <span className="hidden md:block">Posts</span>
                 </button>
                 <button 
                     onClick={() => setActiveTab('reels')}
-                    className={`flex items-center space-x-2 border-t py-3 text-xs font-semibold uppercase tracking-widest transition-colors md:border-t-2 ${activeTab === 'reels' ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 py-3 border-t md:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'reels' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <Clapperboard className="w-3 h-3" />
-                    <span className="hidden md:inline">Reels</span>
+                    <span className="hidden md:block">Reels</span>
                 </button>
                 {isCurrentUser && (
                     <button 
                         onClick={() => setActiveTab('saved')}
-                        className={`flex items-center space-x-2 border-t py-3 text-xs font-semibold uppercase tracking-widest transition-colors md:border-t-2 ${activeTab === 'saved' ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-zinc-500'}`}
+                        className={`flex items-center space-x-2 py-3 border-t md:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'saved' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
                     >
                         <Bookmark className="w-3 h-3" />
-                        <span className="hidden md:inline">Saved</span>
+                        <span className="hidden md:block">Saved</span>
                     </button>
                 )}
                 <button 
                     onClick={() => setActiveTab('tagged')}
-                    className={`flex items-center space-x-2 border-t py-3 text-xs font-semibold uppercase tracking-widest transition-colors md:border-t-2 ${activeTab === 'tagged' ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-zinc-500'}`}
+                    className={`flex items-center space-x-2 py-3 border-t md:border-t-2 text-xs font-semibold tracking-widest uppercase transition-colors ${activeTab === 'tagged' ? 'border-black dark:border-white text-black dark:text-white' : 'border-transparent text-zinc-500'}`}
                 >
                     <UserSquare2 className="w-3 h-3" />
-                    <span className="hidden md:inline">Tagged</span>
+                    <span className="hidden md:block">Tagged</span>
                 </button>
             </div>
         </div>
 
         {/* Grid Content */}
-        <div className={`grid gap-0.5 md:gap-2 lg:gap-8 ${activeTab === 'reels' ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-3'}`}>
+        <div className="grid grid-cols-3 gap-1 md:gap-8">
             {activeTab === 'posts' && (
                 posts.length > 0 ? posts.map(item => (
                     <div 
@@ -258,7 +246,7 @@ export default function UserProfilePage() {
                         className="aspect-[9/16] relative group cursor-pointer bg-zinc-100 dark:bg-zinc-900"
                         onClick={() => setViewPost(item)}
                     >
-                         <video src={item.videoUrl || item.sfcLink} className="w-full h-full object-cover" playsInline muted />
+                         <video src={item.videoUrl || item.sfcLink} className="w-full h-full object-cover" />
                          <div className="absolute bottom-2 left-2 flex items-center text-white text-xs font-bold drop-shadow-md">
                             <Clapperboard className="w-3 h-3 mr-1" /> {item.likes || item.likeCount || 0}
                          </div>

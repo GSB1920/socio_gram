@@ -1,9 +1,7 @@
 {
-  "id": "/",
-  "name": "Socio Gram",
-  "short_name": "Socio Gram",
+  "name": "Sociogram",
+  "short_name": "Sociogram",
   "description": "Social sharing and discovery",
-  "scope": "/",
   "icons": [
     {
       "src": "/icons/icon-192.png",

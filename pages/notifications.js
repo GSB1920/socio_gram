@@ -60,23 +60,23 @@ export default function NotificationsPage() {
         ) : (
             <div className="space-y-4">
                 {notifications.map(notif => (
-                    <div key={notif.id} className="flex flex-col gap-2 rounded-lg p-2 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-900 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="flex min-w-0 flex-1 items-center space-x-3">
-                             <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-zinc-200 dark:border-zinc-800">
+                    <div key={notif.id} className="flex items-center justify-between p-2 hover:bg-zinc-50 dark:hover:bg-zinc-900 rounded-lg cursor-pointer transition-colors">
+                        <div className="flex items-center space-x-3">
+                             <div className="w-11 h-11 rounded-full overflow-hidden border border-zinc-200 dark:border-zinc-800">
                                  <img 
                                     src={notif.senderImg || `https://ui-avatars.com/api/?name=${notif.senderName || 'User'}&background=random`} 
                                     alt="" 
                                     className="w-full h-full object-cover" 
                                  />
                              </div>
-                             <div className="min-w-0 text-sm">
+                             <div className="text-sm">
                                  <span className="font-semibold mr-1">{notif.senderName}</span>
                                  <span>{notif.text}</span>
                                  <span className="text-zinc-500 text-xs ml-1">{notif.timeAgo || 'recently'}</span>
                              </div>
                         </div>
                         {notif.type === 'follow' ? (
-                            <button className="shrink-0 bg-[#0095f6] px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-[#1877f2] rounded-lg">
+                            <button className="bg-[#0095f6] hover:bg-[#1877f2] text-white px-4 py-1.5 rounded-lg text-sm font-semibold transition-colors">
                                 Follow
                             </button>
                         ) : (

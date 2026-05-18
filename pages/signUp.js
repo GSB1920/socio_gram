@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Facebook } from "lucide-react";
 import "../lib/firebase";
 import { useUser } from "@/contexts/UserContext";
-import InstallPwaButton from "@/components/InstallPwaButton";
 
 function hashPassword(password) {
   return crypto.subtle.digest("SHA-256", new TextEncoder().encode(password)).then((buf) =>
@@ -78,8 +77,8 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-white px-4 py-8">
-      <div className="mx-auto flex w-full max-w-sm flex-col md:max-w-md">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+      <div className="flex flex-col w-full max-w-[350px]">
         {/* Main Signup Box */}
         <div className="bg-white border border-zinc-300 rounded-sm p-8 mb-4">
           <div className="flex justify-center mb-4">
@@ -168,8 +167,11 @@ export default function SignUpPage() {
 
         {/* Get the app */}
         <div className="mt-4 text-center">
-            <p className="mb-4 text-sm text-zinc-600">Get the app.</p>
-            <InstallPwaButton alwaysShow className="w-full" />
+            <p className="text-sm text-zinc-600 mb-4">Get the app.</p>
+            <div className="flex justify-center space-x-2">
+                <img src="https://static.cdninstagram.com/rsrc.php/v3/yt/r/Yfc020c87j0.png" alt="Get it on Google Play" className="h-10" />
+                <img src="https://static.cdninstagram.com/rsrc.php/v3/yu/r/EHY6QnZYdNX.png" alt="Get it from Microsoft" className="h-10" />
+            </div>
         </div>
       </div>
       

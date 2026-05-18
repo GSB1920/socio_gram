@@ -4,14 +4,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, viewport-fit=cover"
-        />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
-        <meta name="application-name" content="Socio Gram" />
-        <meta name="apple-mobile-web-app-title" content="Socio Gram" />
+        <meta name="application-name" content="Sociogram" />
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta

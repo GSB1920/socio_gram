@@ -3,7 +3,6 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useRouter } from "next/router";
 import { useUser } from "@/contexts/UserContext";
-import MediaFrame from "@/components/MediaFrame";
 import "../../lib/firebase";
 
 export default function SFCPage() {
@@ -182,14 +181,13 @@ export default function SFCPage() {
           </div>
 
           {videoPreview && (
-            <MediaFrame variant="reel">
+            <div className="w-full">
               <video
                 src={videoPreview}
                 controls
-                playsInline
-                className="h-full w-full object-contain"
+                className="w-full max-h-96 rounded border border-zinc-300 dark:border-zinc-700"
               />
-            </MediaFrame>
+            </div>
           )}
 
           <div>

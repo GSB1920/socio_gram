@@ -3,7 +3,6 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useRouter } from "next/router";
 import { useUser } from "@/contexts/UserContext";
-import MediaFrame from "@/components/MediaFrame";
 import "../../lib/firebase";
 
 export default function StaticImagePage() {
@@ -149,13 +148,13 @@ export default function StaticImagePage() {
           </div>
 
           {imagePreview && (
-            <MediaFrame variant="feed">
+            <div className="w-full">
               <img
                 src={imagePreview}
                 alt="Preview"
-                className="h-full w-full object-contain"
+                className="w-full max-h-96 object-contain rounded border border-zinc-300 dark:border-zinc-700"
               />
-            </MediaFrame>
+            </div>
           )}
 
           <div>

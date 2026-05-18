@@ -66,7 +66,7 @@ function ReelItem({ reel, isActive }) {
     };
 
     return (
-        <div className="relative flex h-[calc(100dvh-var(--nav-height)-var(--safe-top)-var(--header-height))] w-full flex-shrink-0 snap-start items-center justify-center overflow-hidden rounded-none border-0 bg-black md:h-[calc(100dvh)] md:rounded-lg md:border md:border-zinc-800 lg:my-4 lg:h-[calc(100vh-40px)]">
+        <div className="relative w-full h-[calc(100vh-2rem)] md:h-[calc(100vh-40px)] bg-black snap-start flex-shrink-0 flex items-center justify-center rounded-lg overflow-hidden my-4 border border-zinc-800">
             {/* Video */}
             <video 
                 ref={videoRef}
@@ -97,7 +97,7 @@ function ReelItem({ reel, isActive }) {
             </div>
 
             {/* Side Actions */}
-            <div className="absolute bottom-20 right-2 flex flex-col items-center space-y-4 lg:bottom-4">
+            <div className="absolute bottom-4 right-2 flex flex-col items-center space-y-4">
                 <button onClick={handleLike} className="flex flex-col items-center">
                     <Heart className={`w-7 h-7 ${liked ? 'fill-red-500 text-red-500' : 'text-white'}`} strokeWidth={1.5} />
                     <span className="text-white text-xs mt-1">{likesCount}</span>
@@ -159,14 +159,14 @@ export default function ReelsPage() {
 
   return (
     <Layout>
-      <div className="flex h-full min-h-0 w-full flex-1 justify-center bg-black">
+      <div className="h-screen w-full flex justify-center bg-black">
         <div 
             ref={containerRef}
             onScroll={handleScroll}
-            className="h-full w-full max-w-md overflow-y-scroll snap-y snap-mandatory scrollbar-hide"
+            className="w-full max-w-md h-full overflow-y-scroll snap-y snap-mandatory scrollbar-hide"
         >
             {reels.map((reel, idx) => (
-                <div key={reel.id} className="h-full w-full snap-start md:px-2 md:pt-2 lg:px-2 lg:pt-4">
+                <div key={reel.id} className="h-full w-full snap-start pt-4 px-2">
                      <ReelItem reel={reel} isActive={idx === activeIndex} />
                 </div>
             ))}

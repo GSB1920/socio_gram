@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { useUser } from '../contexts/UserContext';
 import Link from 'next/link';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 export default function RightSidebar() {
-  const router = useRouter();
   const { user, logout } = useUser();
-
-  const handleLogout = () => {
-    logout();
-    router.push("/signIn");
-  };
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
@@ -73,12 +66,11 @@ export default function RightSidebar() {
             </span>
           </div>
         </Link>
-        <button
-          type="button"
-          onClick={handleLogout}
+        <button 
+          onClick={logout}
           className="text-xs font-semibold text-blue-500 hover:text-blue-700"
         >
-          Log out
+          Switch
         </button>
       </div>
 
@@ -133,7 +125,7 @@ export default function RightSidebar() {
       </div>
 
       <div className="text-xs text-zinc-400 uppercase">
-        © 2026 Socio Gram
+        © 2026 INSTAGRAM FROM META
       </div>
     </div>
   );
