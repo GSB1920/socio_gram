@@ -77,7 +77,7 @@ export default function UserProfilePage() {
   if (loading) {
     return (
         <Layout>
-            <div className="flex min-h-[50dvh] items-center justify-center">
+            <div className="flex justify-center items-center h-screen">
                 <div className="w-8 h-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full animate-spin"></div>
             </div>
         </Layout>
@@ -98,11 +98,11 @@ export default function UserProfilePage() {
 
   return (
     <Layout>
-      <div className="mx-auto max-w-4xl px-4 py-4 md:px-4 lg:py-8">
+      <div className="max-w-4xl mx-auto md:px-4 py-8">
         {/* Profile Header */}
         <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-12 px-4 mb-12">
           {/* Avatar */}
-          <div className="mb-4 h-24 w-24 flex-shrink-0 rounded-full bg-zinc-200 p-[2px] dark:bg-zinc-800 md:mb-0 md:h-36 md:w-36">
+          <div className="w-20 h-20 md:w-36 md:h-36 rounded-full bg-zinc-200 dark:bg-zinc-800 p-[2px] mb-4 md:mb-0 flex-shrink-0">
              <img 
                 src={profileUser.img || profileUser.photoURL || `https://ui-avatars.com/api/?name=${profileUser.username}&background=random&size=150`} 
                 alt="Profile" 

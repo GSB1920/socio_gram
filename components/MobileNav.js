@@ -47,7 +47,11 @@ export default function MobileNav({ onCreateClick, onSearchOpen }) {
 
   const handleCreate = (type) => {
     setShowCreateMenu(false);
-    onCreateClick?.(type);
+    if (onCreateClick) {
+      onCreateClick(type);
+    } else {
+      router.push("/");
+    }
   };
 
   return (
@@ -55,12 +59,7 @@ export default function MobileNav({ onCreateClick, onSearchOpen }) {
       {showCreateMenu && <Backdrop onClose={() => setShowCreateMenu(false)} />}
 
       {showCreateMenu && (
-        <div
-          className="fixed left-0 right-0 z-[56] px-4 pb-2 lg:hidden"
-          style={{
-            bottom: "calc(var(--nav-height) + env(safe-area-inset-bottom, 0px))",
-          }}
-        >
+        <div className="fixed bottom-16 left-0 right-0 z-[56] px-4 pb-2 lg:hidden">
           <div className="mx-auto max-w-sm overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
             <button
               type="button"
@@ -104,13 +103,10 @@ export default function MobileNav({ onCreateClick, onSearchOpen }) {
                 href={item.href}
                 onClick={item.onClick}
                 aria-label={item.label}
-                className={`relative flex min-h-11 min-w-11 flex-col items-center justify-center p-2 ${
+                className={`flex flex-col items-center justify-center p-2 ${
                   active ? "text-black dark:text-white" : "text-zinc-500"
                 }`}
               >
-                {active && (
-                  <span className="absolute top-1 h-0.5 w-5 rounded-full bg-black dark:bg-white" />
-                )}
                 <item.icon className="h-6 w-6" strokeWidth={active ? 2.5 : 2} />
               </Tag>
             );
@@ -120,7 +116,7 @@ export default function MobileNav({ onCreateClick, onSearchOpen }) {
             type="button"
             aria-label="Create"
             onClick={() => setShowCreateMenu((v) => !v)}
-            className="flex min-h-11 min-w-11 flex-col items-center justify-center p-2 text-zinc-500"
+            className="flex flex-col items-center justify-center p-2 text-zinc-500"
           >
             <PlusSquare className="h-6 w-6" strokeWidth={2} />
           </button>
@@ -128,13 +124,10 @@ export default function MobileNav({ onCreateClick, onSearchOpen }) {
           <Link
             href={profileHref}
             aria-label="Profile"
-            className={`relative flex min-h-11 min-w-11 flex-col items-center justify-center p-2 ${
+            className={`flex flex-col items-center justify-center p-2 ${
               isProfileActive ? "text-black dark:text-white" : "text-zinc-500"
             }`}
           >
-            {isProfileActive && (
-              <span className="absolute top-1 h-0.5 w-5 rounded-full bg-black dark:bg-white" />
-            )}
             <div
               className={`h-6 w-6 overflow-hidden rounded-full ring-2 ${
                 isProfileActive

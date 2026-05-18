@@ -217,7 +217,7 @@ export default function MessagesPage() {
 
   return (
     <Layout>
-      <div className="flex h-[calc(100dvh-var(--nav-height)-var(--safe-top)-var(--header-height))] min-h-0 flex-1 overflow-hidden bg-white dark:bg-black lg:h-screen">
+      <div className="flex h-[calc(100dvh-4rem)] overflow-hidden bg-white dark:bg-black lg:h-screen">
         {/* Sidebar */}
         <div className={`w-full md:w-[350px] border-r border-zinc-200 dark:border-zinc-800 flex flex-col ${activeChat ? 'hidden md:flex' : 'flex'}`}>
             <div className="h-20 flex items-center justify-between px-6 pt-4 pb-2">
