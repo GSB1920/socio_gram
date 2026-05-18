@@ -10,7 +10,12 @@ import PostDetailModal from "../components/PostDetailModal";
 export default function UserProfilePage() {
   const router = useRouter();
   const { username } = router.query;
-  const { user: currentUser } = useUser();
+  const { user: currentUser, logout } = useUser();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/signIn");
+  };
   
   const [profileUser, setProfileUser] = useState(null);
   const [activeTab, setActiveTab] = useState("posts");
@@ -77,7 +82,7 @@ export default function UserProfilePage() {
   if (loading) {
     return (
         <Layout>
-            <div className="flex justify-center items-center h-screen">
+            <div className="flex min-h-[50dvh] items-center justify-center">
                 <div className="w-8 h-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full animate-spin"></div>
             </div>
         </Layout>
@@ -98,11 +103,11 @@ export default function UserProfilePage() {
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto md:px-4 py-8">
+      <div className="mx-auto max-w-4xl py-4 md:px-4 lg:py-8">
         {/* Profile Header */}
-        <div className="flex flex-col md:flex-row items-center md:items-start md:space-x-12 px-4 mb-12">
+        <div className="mb-8 flex flex-col items-center px-4 md:mb-12 md:flex-row md:items-start md:space-x-12 lg:mb-12">
           {/* Avatar */}
-          <div className="w-20 h-20 md:w-36 md:h-36 rounded-full bg-zinc-200 dark:bg-zinc-800 p-[2px] mb-4 md:mb-0 flex-shrink-0">
+          <div className="mb-4 h-24 w-24 flex-shrink-0 rounded-full bg-zinc-200 p-[2px] dark:bg-zinc-800 md:mb-0 md:h-36 md:w-36">
              <img 
                 src={profileUser.img || profileUser.photoURL || `https://ui-avatars.com/api/?name=${profileUser.username}&background=random&size=150`} 
                 alt="Profile" 
@@ -116,15 +121,22 @@ export default function UserProfilePage() {
                 <h2 className="text-xl text-black dark:text-zinc-50">{profileUser.username}</h2>
                 
                 {isCurrentUser ? (
-                    <div className="flex space-x-2">
-                        <button className="px-4 py-1.5 bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white rounded-lg text-sm font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                    <div className="flex w-full max-w-xs flex-col gap-2 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center md:justify-start">
+                        <button type="button" className="rounded-lg bg-zinc-100 px-4 py-1.5 text-sm font-semibold text-black hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700">
                             Edit profile
                         </button>
-                        <button className="px-4 py-1.5 bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white rounded-lg text-sm font-semibold hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                        <button type="button" className="rounded-lg bg-zinc-100 px-4 py-1.5 text-sm font-semibold text-black hover:bg-zinc-200 dark:bg-zinc-800 dark:text-white dark:hover:bg-zinc-700">
                             View archive
                         </button>
-                        <button className="p-1.5 text-black dark:text-white">
-                            <Settings className="w-6 h-6" />
+                        <button
+                          type="button"
+                          onClick={handleLogout}
+                          className="w-full rounded-lg border border-zinc-300 px-4 py-1.5 text-sm font-semibold text-red-600 hover:bg-red-50 dark:border-zinc-600 dark:text-red-400 dark:hover:bg-red-950/30 sm:w-auto"
+                        >
+                            Log out
+                        </button>
+                        <button type="button" className="hidden p-1.5 text-black dark:text-white sm:inline-flex">
+                            <Settings className="h-6 w-6" />
                         </button>
                     </div>
                 ) : (

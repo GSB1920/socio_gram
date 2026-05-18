@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Home, Search, Compass, Clapperboard, MessageCircle, Heart, PlusSquare, Menu, FileText, Video, Image as ImageIcon, Camera, Settings, Activity, Bookmark, Moon, MessageSquareWarning, Repeat, LogOut } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 export default function Sidebar({
@@ -8,7 +9,14 @@ export default function Sidebar({
   onSearchToggle,
   onSearchClose,
 }) {
+  const router = useRouter();
   const { user, logout } = useUser();
+
+  const handleLogout = () => {
+    logout();
+    setShowMoreMenu(false);
+    router.push("/signIn");
+  };
   const [showCreateMenu, setShowCreateMenu] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -175,10 +183,7 @@ export default function Sidebar({
                 </button>
                 <div className="h-px bg-zinc-200 dark:bg-zinc-700 my-1.5 mx-2" />
                 <button 
-                  onClick={() => {
-                    logout();
-                    setShowMoreMenu(false);
-                  }}
+                  onClick={handleLogout}
                   className="w-full text-left px-4 py-3 hover:bg-zinc-100 dark:hover:bg-zinc-700 flex items-center space-x-3 transition-colors"
                 >
                   <LogOut className="w-5 h-5 text-black dark:text-white" />
